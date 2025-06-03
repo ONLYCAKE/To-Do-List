@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission: Possible - Student Edition</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+    <!-- Auth Container -->
+    <div id="auth-container" class="auth-container">
+        <!-- Login Form -->
+        <div id="login-form" class="auth-form">
+            <div class="auth-header">
+                <h2><i class="fas fa-lock"></i> Login</h2>
+                <p>Welcome back! Please login to your account.</p>
+            </div>
+            <form id="login">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <div class="password-input">
+                        <input type="password" id="login-password" required>
+                        <button type="button" class="toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="auth-btn">Login</button>
+            </form>
+            <p class="auth-switch">Don't have an account? <a href="#" id="show-register">Register</a></p>
+        </div>
+
+        <!-- Register Form -->
+        <div id="register-form" class="auth-form hidden">
+            <div class="auth-header">
+                <h2><i class="fas fa-user-plus"></i> Register</h2>
+                <p>Create your account to get started.</p>
+            </div>
+            <form id="register">
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <div class="password-input">
+                        <input type="password" id="register-password" required>
+                        <button type="button" class="toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <div class="password-input">
+                        <input type="password" id="register-confirm-password" required>
+                        <button type="button" class="toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="auth-btn">Register</button>
+            </form>
+            <p class="auth-switch">Already have an account? <a href="#" id="show-login">Login</a></p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="app-container hidden">
+        <!-- User Header -->
+        <div class="user-header">
+            <div class="user-header-left">
+                <span id="user-welcome">Welcome, User!</span>
+            </div>
+            <div class="user-header-right">
+                <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button type="button" id="logout-btn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Mindfulness Reminder Modal -->
+        <div id="mindfulness-modal" class="modal">
+            <div class="modal-content">
+                <h2><i class="fas fa-spa"></i> Time for a Mindful Break</h2>
+                <p class="mindfulness-text">Take a moment to breathe and relax...</p>
+                <div class="breathing-animation">
+                    <div class="circle"></div>
+                    <p class="breath-text">Breathe In...</p>
+                </div>
+                <button class="modal-close">Continue</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Side Menu Bar -->
+            <nav class="sidebar">
+                <div class="menu-header">
+                    <h1>Mission: Possible</h1>
+                    <button type="button" class="menu-toggle" aria-label="Toggle menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+
+                <!-- Motivational Quote Section -->
+                <div class="quote-section">
+                    <i class="fas fa-quote-left"></i>
+                    <p id="daily-quote">Loading your daily inspiration...</p>
+                    <small id="quote-author"></small>
+                </div>
+
+                <ul class="nav-links">
+                    <li>
+                        <a href="#dashboard" data-section="dashboard" class="active">
+                            <i class="fas fa-chart-pie"></i> Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#all-tasks" data-section="all-tasks">
+                            <i class="fas fa-tasks"></i> All Tasks
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#completed-tasks" data-section="completed-tasks">
+                            <i class="fas fa-check-circle"></i> Completed Tasks
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#add-task" data-section="add-task">
+                            <i class="fas fa-plus"></i> Add Task
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#categories" data-section="categories">
+                            <i class="fas fa-folder"></i> Categories
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#team-view" data-section="team-view">
+                            <i class="fas fa-users"></i> Team View
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main Content Area -->
+            <main class="content">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="section active">
+                    <h2><i class="fas fa-chart-pie"></i> Dashboard Overview</h2>
+                    
+                    <!-- Mindfulness Status -->
+                    <div class="mindfulness-status">
+                        <div class="focus-timer">
+                            <h3><i class="fas fa-clock"></i> Focus Session</h3>
+                            <div class="timer-display">25:00</div>
+                            <button id="start-focus" class="focus-btn">Start Focus Session</button>
+                        </div>
+                        <div class="daily-progress">
+                            <h3><i class="fas fa-chart-line"></i> Daily Progress</h3>
+                            <div class="progress-stats">
+                                <div class="progress-item">
+                                    <span>Focus Time</span>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <span>Tasks Completed</span>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-stats">
+                        <div class="stat-card total-tasks">
+                            <i class="fas fa-tasks"></i>
+                            <h3>Total Tasks</h3>
+                            <p id="total-tasks-count">0</p>
+                        </div>
+                        <div class="stat-card overdue-tasks">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h3>Overdue Tasks</h3>
+                            <p id="overdue-tasks-count">0</p>
+                        </div>
+                        <div class="stat-card completed-tasks">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Completed Tasks</h3>
+                            <p id="completed-tasks-count">0</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="all-tasks" class="section">
+                    <h2><i class="fas fa-tasks"></i> All Tasks</h2>
+                    <div class="filter-tabs" role="tablist">
+                        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true" aria-label="Show all tasks">
+                            <i class="fas fa-th-list"></i> All
+                        </button>
+                        <button class="filter-btn" data-filter="category" role="tab" aria-selected="false" aria-label="Filter by category">
+                            <i class="fas fa-folder"></i> By Category
+                        </button>
+                        <button class="filter-btn" data-filter="priority" role="tab" aria-selected="false" aria-label="Filter by priority">
+                            <i class="fas fa-exclamation-circle"></i> By Priority
+                        </button>
+                        <button class="filter-btn" data-filter="date" role="tab" aria-selected="false" aria-label="Filter by due date">
+                            <i class="fas fa-calendar"></i> By Due Date
+                        </button>
+                    </div>
+                    <div class="task-list" id="active-tasks" role="tabpanel"></div>
+                </section>
+
+                <section id="completed-tasks" class="section completed-section">
+                    <h2><i class="fas fa-check-circle"></i> Completed Tasks</h2>
+                    <div class="task-list" id="completed-tasks-list" role="list"></div>
+                </section>
+
+                <section id="add-task" class="section">
+                    <h2><i class="fas fa-plus"></i> Add New Task</h2>
+                    <form id="task-form" class="add-task-form">
+                        <div class="form-grid">
+                            <!-- Title -->
+                            <div class="form-group">
+                                <label for="task-title">Task Title <span class="required">*</span></label>
+                                <input type="text" id="task-title" required placeholder="Enter task title">
+                            </div>
+
+                            <!-- Description -->
+                            <div class="form-group full-width">
+                                <label for="task-description">Description</label>
+                                <textarea id="task-description" rows="3" placeholder="Enter task description"></textarea>
+                            </div>
+
+                            <!-- Category and Priority -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="task-category">Category <span class="required">*</span></label>
+                                    <select id="task-category" required>
+                                        <option value="">Select Category</option>
+                                        <option value="Work">Work</option>
+                                        <option value="Personal">Personal</option>
+                                        <option value="Study">Study</option>
+                                        <option value="Health">Health</option>
+                                        <option value="Shopping">Shopping</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="task-priority">Priority <span class="required">*</span></label>
+                                    <select id="task-priority" required>
+                                        <option value="">Select Priority</option>
+                                        <option value="high">High</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="low">Low</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Due Date and Assignee -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="task-due-date">Due Date <span class="required">*</span></label>
+                                    <input type="date" id="task-due-date" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="task-assignee">Assignee</label>
+                                    <input type="text" id="task-assignee" placeholder="Enter assignee name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="window.location.href='#all-tasks'">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                            <button type="submit" class="add-task-btn">
+                                <i class="fas fa-plus"></i> Add Task
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <section id="categories" class="section">
+                    <h2><i class="fas fa-folder"></i> Categories</h2>
+                    <div class="category-list" role="list"></div>
+                </section>
+
+                <section id="team-view" class="section team-section">
+                    <h2><i class="fas fa-users"></i> Team View</h2>
+                    <div class="task-list" id="team-tasks" role="list"></div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
